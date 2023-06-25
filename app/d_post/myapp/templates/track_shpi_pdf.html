@@ -1,0 +1,60 @@
+<html>
+ <head>
+   <title>Track</title>
+   <style>
+     h1 {
+       text-align: center;
+     }
+
+     table {
+       border: 1px solid;
+       margin: 0 auto;
+       width: 70%;
+     }
+
+     td, th {
+       text-align: center;
+       border: 1px solid;
+     }
+   </style>
+</head>
+
+
+ <body>
+
+    <div>        
+        <p align="left"> ООО "ДЕЛОВАЯ ПОЧТА ГОРОДА" </p>
+        <hr>
+        <br><br>
+    </div>                
+
+  <p style="font-size:16px"><b>Отчёт об отслеживании отправления {{ Abonent.shpi }}:</b></p>
+  <br>
+  <p style="font-size:16px">Почтовое отправление {{Abonent.notification_verbose}}</p>
+  <p style="font-size:16px">Текущий статус: {{ Track_last_info.status_verbose }}</p>
+  <p style="font-size:16px"><b>От кого:  </b>{{ Fnss }}</p>  
+  <p style="font-size:16px"><b>Кому: </b>{{Abonent.fio}}</p>    
+  <p style="font-size:16px"><b>Куда: </b>{{Abonent.address}}</p>  
+  <p style="font-size:16px">Номера документов: {{Abonent.doc_number}}</p>    
+  <br>
+
+  <p style="font-size:14px">История отслеживания:</p>
+   <table align="left">
+     <thead>
+       <tr>
+         <th>Дата</th>
+         <th>Статус</th>
+       </tr>
+     </thead>
+     <tbody>
+        {% for q in Track_info %}
+         <tr>
+           <td>{{ q.status_date }}</td>
+           <td>{{ q.status_verbose }}</td>
+         </tr>
+       {% endfor %}    
+     </tbody>
+   </table>
+
+  </body>
+</html>

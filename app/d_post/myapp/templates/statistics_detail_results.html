@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+
+{% block main %}
+<div align="center">  
+  <p><b>Статистика с {{start_date}} по {{end_date}} для {{fns}}. Всего отправлений: {{total}}.</b></p>
+  <br>
+</div>
+
+
+<table align="center" class="table" style="position: relative;">
+  <thead>    
+    <tr>
+         <th>№ реестра</th> 
+         <th>ID реестра</th> 
+         <th>Дата загрузки</th>
+         <th>Кол-во отпрайвлений</th>
+         <th>Тип отправления</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for q in regs %}
+      <tr align="center">        
+           <td>{{ q.reg_year }}/{{ q.reg_number }}</td>
+           <td><a href="/myapp/view_registers/{{q.id}}" target="_blank">{{q.id}}</a></td>
+           <td>{{ q.reg_date }}</td>
+           <td>{{ q.kol_mails }}</td>
+           <td>{{ q.notification_verbose }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<!-- Print -->
+<p><br /></p> 
+<h1 align="center"><a href="/myapp/view_detail_stat/?{{request.GET.urlencode}}&print=1" target="_blank">Напечатать</a>  </h1>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+
+{% block main %}
+<div align="center">  
+  <p>Результаты поиска</p>
+  <br>
+</div>    
+
+<table align="center" class="table" style="position: relative;">
+<table>
+  <thead>    
+    <tr>
+         <th>ФИО</th> 
+         <th>Адрес</th>
+         <th>ШПИ</th>
+         <th>Дата добавления</th>
+         <th>id реестра</th>
+         <th>Налоговая</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for q in Abons %}
+      <tr>        
+           <td>{{q.fio}}</td>
+           <td>{{q.address}}</td>
+           <td><a href="/myapp/track_shpi/{{q.shpi}}">{{q.shpi}}</a></td>    
+           <td>{{q.record_creation_date}}</td>
+           <td><a href="/myapp/view_registers/{{q.reg_id}}">{{q.reg_id}}</a></td>           
+           <td>{{q.fns_verbose}}</td>           
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

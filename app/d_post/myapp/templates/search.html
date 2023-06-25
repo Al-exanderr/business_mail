@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<div align="center">  
+  <p><b>Поиск абонента:</b></p>
+  <form method="POST" class="post-form"  enctype="multipart/form-data">{% csrf_token %}
+      <p>Фрагмент ФИО: <input type = 'text' name = 'fio' ></p>
+      <p>Фрагмент адреса: <input type = 'text' name = 'addr' ></p>
+      <p><b>Поиск реестра:</b></p>
+      <p>ID реестра: <input type = "number" name = 'reg_id' ></p>    
+      <p>№ реестра: <input type = "number" name = 'reg_nmbr' ></p> 
+      <p>Реестры с датой начиная с <input type = 'date' name = 'start_date' >
+         по : <input type = 'date' name = 'stop_date' ></p>
+      <button type="submit" class="save btn btn-default">Ок</button>
+  </form>
+</div>  
+
+
+  {% endblock %}

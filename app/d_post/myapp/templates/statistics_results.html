@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+
+{% block main %}
+<div align="center">  
+  <p><b>Статистика по количеству отправлений с {{start_date}} по {{end_date}}</b></p>
+  {% if incorrect_date %}
+  <p><b><font color="#ff0000">Некорректно выбран диапазон дат. Дата окончания периода раньше даты начала.</font></b></p>
+  {% endif %}
+  <br>
+</div>    
+
+<table align="center" class="table" style="position: relative;">
+  <thead>    
+    <tr>
+         <th>Налоговая</th> 
+         <th>Простых отправлений</th>
+         <th>Заказных отправлений</th>
+         <th>Заказных с уведомлением</th>
+         <th>Административных</th>
+         <th>ВСЕХ</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for q in zak_list %}
+      <tr>        
+           <td>{{ q.0 }}</td>
+           <td><a href="/myapp/view_detail_stat/?start_date={{start_date}}&stop_date={{end_date}}&fns_id={{q.5}}&notification=OR&total={{q.1}}&print=0">{{ q.1 }}</a></td>
+           <td><a href="/myapp/view_detail_stat/?start_date={{start_date}}&stop_date={{end_date}}&fns_id={{q.5}}&notification=NU&total={{q.2}}&print=0">{{ q.2 }}</a></td>
+           <td><a href="/myapp/view_detail_stat/?start_date={{start_date}}&stop_date={{end_date}}&fns_id={{q.5}}&notification=WU&total={{q.3}}&print=0">{{ q.3 }}</a></td>
+           <td><a href="/myapp/view_detail_stat/?start_date={{start_date}}&stop_date={{end_date}}&fns_id={{q.5}}&notification=AU&total={{q.4}}&print=0">{{ q.4 }}</a></td>
+           <td>{{ q.1|add:q.2|add:q.3|add:q.4 }}</td>
+      </tr>
+    {% endfor %}
+
+    {% if request.user.username == 'admin' %} 
+    <tr>        
+      <td><b>По всем налоговым</b></td>
+      <td><b>{{ kol_simpl }}</b></td>
+      <td><b>{{ kol_zak }}</b></td>
+      <td><b>{{ kol_zak_u }}</b></td>
+      <td><b>{{ kol_zak_adm }}</b></td>
+      <td><b>{{ kol }}</b></td> 
+    </tr>
+    {% endif %}
+  </tbody>
+</table>
+
+<p><br /></p> 
+<h1 align="center"><a href="/myapp/print_statistic?start_date={{start_date}}&end_date={{end_date}}" target="_blank">Напечатать</a>  </h1>
+{% endblock %}

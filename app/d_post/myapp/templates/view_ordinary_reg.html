@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+
+
+{% block main %}
+<style type="text/css">
+tr.orange { background: rgb(245, 171, 148); }
+tr.green  { background: rgb(221, 253, 221); }
+</style>
+
+
+
+<div align="center">
+    <p></p>
+    <p><b>Реестр простых отправлений № {{registry_nmbr}}, id реестра: {{registry_id}}</b></p>
+
+
+  <form method="POST" class="post-form">{% csrf_token %}
+
+    
+    <br>
+    <table align="center" class="table" style="position: relative;">
+     <thead>    
+       <tr> 
+            <th>Адрес</th>
+            <th>Адресат</th>
+            <th>№ документов</th>
+            <th>Инстпектор</th>
+            <th>Реальная дата добавления</th>         
+            <th>Налоговая</th>
+       </tr>
+     </thead>
+     <tbody>
+        {% for q in mails %}  
+         <tr>   
+              <td>{{q.address}}</td>
+              <td>{{q.fio}}</td>    
+              <td>{{q.doc_number}}</td>         
+              <td>{{q.inspector}}</td>
+              <td>{{q.record_creation_date}}</td>
+              <td>{{q.fns_verbose}}</td>
+         </tr>
+       {% endfor %}    
+     </tbody>
+   </table>
+    
+  </form>
+</div>
+
+
+{% endblock %}

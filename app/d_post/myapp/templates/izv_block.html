@@ -1,0 +1,26 @@
+{% load barcode_tags %}
+{% load get_fns %}
+
+
+{% block container %}    
+  <div>
+    <p style="text-align: left; font-size:12px">Оператор почтовой связи, ООО "Деловая почта города"</p>  
+    <p class="center"><b>ИЗВЕЩЕНИЕ (СРОЧНО)</b></p>   
+          
+    <table align="left" width=100% cellspacing="0" cellpadding="0" border="0">
+      <thead>    
+          <tr>
+              <th style="text-align: left">Кому </th>  <th class="center">{{obj.fio}}</th>   
+          </tr>  
+          <tr>
+              <th style="text-align: left">Куда </th>  <th class="center">{{obj.address}}</th>   
+          </tr>
+      </thead>
+    </table>
+    <br> <br>
+    <p style="text-align: left"><b>На ваше имя поступило заказное письмо с уведомлением</b></p>  
+    <p style="text-align: left"><b>Справки по телефону: 429-038</b></p> 
+    <p style="text-align: left"><b>Выдача заказной корреспонденции производится на следующий день после получения извещения по адресу: г. Пенза, ул. Суворова д. 255 (здание "Рембыттехники", район Глобуса), 4-й этаж, офис 55. Время работы: понедельник - пятница с 10:00 до 18:00 (без перерыва).</b></p>  
+    <p style="text-align: left">Для получения почтового отправления необходимо предъявить настоящее извещение и документ, удостоверяющий личность или доверенность на право получения заказной корреспонденции.</p>
+  </div>  
+{% endblock %}

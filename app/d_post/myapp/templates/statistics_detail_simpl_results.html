@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+
+{% block main %}
+<div align="center">  
+  <p><b>Статистика с {{start_date}} по {{end_date}} для {{fns}}. Всего отправлений: {{total}}.</b></p>
+  <br>
+</div>
+
+
+<table align="center" class="table" style="position: relative;">
+  <thead>    
+    <tr>
+         <th>Дата загрузки</th>
+         <th>Дата создания</th> 
+         <th>Адрес</th>
+         <th>ФИО</th> 
+         <th>№ документов</th>
+         <th>Инспектор</th> 
+         <th>№ реестра</th>
+         <th>id реестра</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for q in mails %}
+      <tr align="center">        
+           <td>{{q.record_creation_date}}</td>
+           <td>{{q.made_date}}</a></td>
+           <td>{{q.address}}</td>
+           <td>{{q.fio}}</td>
+           <td>{{q.doc_number}}</td>
+           <td>{{q.inspector}}</td>
+           <td>{{q.reg_nmbr}}</td>
+           <td><a href="/myapp/view_ordinary_registry/{{q.reg_id.id}}">{{q.reg_id.id}}</a></td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

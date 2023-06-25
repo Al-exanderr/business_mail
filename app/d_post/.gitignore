@@ -1,0 +1,10 @@
+*.pyc
+*~
+*.xlsx
+*.xls
+*.pdf
+__pycache__
+myvenv
+db.sqlite3
+/static
+telegram.py

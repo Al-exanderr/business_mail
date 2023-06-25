@@ -1,0 +1,68 @@
+<html>
+ <head>
+  <meta charset="UTF-8" />
+  <title></title>
+
+  {% if not printed %}
+    {% load static %}
+    <!-- <link href="/media/print.css" rel="stylesheet" type="text/css" /> -->
+    <link href="{% static 'admin/css/base.css' %}" rel="stylesheet" type="text/css" />
+  {% endif %}
+
+
+
+</head>
+
+{% load barcode_tags %}
+{% load get_fns %}
+
+{% block main %}    
+<p style="font-size:16px" align="center"><b>РЕЕСТР №{{ Reg.year_reg_number }}</b></p>
+<p style="font-size:16px" align="center"><b>{{ Reg.notification_verbose_rp }} писем {{ Reg.fns_verbose }} от {{ Reg.reg_date }}</b></p>
+<p>{{ STATIC_URL }}</p>
+
+
+<table>
+    <thead>    
+        <tr>
+            <th><b>№ п/п</th>
+            <th><b>ШПИ</th>   
+            <th><b>Почтовый адрес</b></th>
+            <th><b>Наименование адресата</b></th>
+            <th><b>№ документа</b></th>
+            <th><b>Примечание</b></th>
+        </tr> 
+    </thead>
+    <tbody>  
+       {% for q in abons %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            {% if printed %}
+              <td>{{ q.shpi }}</td>
+            {% else %} 
+              <td><a href="/myapp/track_shpi/{{ q.shpi }}/">{{ q.shpi }}</a></td>            
+            {% endif %}
+            <td>{{ q.address }}</td>
+            <td>{{ q.fio }}</td>
+            <td>{{ q.doc_number }}</td>
+            <td>{{ q.inspector }}</td>
+        </tr>
+      {% endfor %}    
+   </tbody> 
+</table>
+<br>
+{% if printed %}
+<div>
+  <p style="color: #FFF; font-size: 1;">.</p>
+  <p align="left">Сдал &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp Принял</p>
+  <p align="left">&nbsp &nbsp &nbsp &nbsp &nbsp _____________________&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp _____________________</p>
+  <p align="left">&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp (должность) &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp (должность)</p>
+  <p align="left">&nbsp &nbsp &nbsp &nbsp &nbsp _____________________&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp _____________________</p>
+  <p align="left">&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp (подпись) &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp (подпись)</p>
+  <p align="left">&nbsp &nbsp &nbsp &nbsp &nbsp _____________________&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp _____________________</p>
+  <p align="left">&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp (Ф.И.О.) &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp (Ф.И.О)</p>
+  <p align="left">&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp М.П. &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp М.П.</p>
+</div>
+{% endif %}
+
+{% endblock %}

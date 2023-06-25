@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<form method="post">
+  {% csrf_token %}
+  {{ user_form.as_p }}
+  <p>_____________________________</p>
+  {{ List_User_Form.as_p }}
+  <button type="submit">Сохранить изменения</button>
+</form>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+
+{% block side %}     
+<div class="sidenav">
+  <p></p>
+  <a href="/myapp/generate_shpi/">Сгенерировать файл ШПИ</a>
+  <p></p>
+  <a href="/myapp/track_shpi/">Отследить отправление</a>
+  <p></p> 
+</div>
+{% endblock %}  
+
+
+{% block main %}
+<div align="center">
+    <p></p>
+    <p><b>Сгенерировать файл ШПИ</b></p>
+    <br>
+    <form method="POST" class="post-form">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-default">Сгенерировать</button>
+    </form>
+</div>    
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<div align="center">  
+  <p><b>Печать извещений</b></p>
+  <br>
+  <form method="POST" class="post-form"  enctype="multipart/form-data">{% csrf_token %}
+    <p>Номер извещения: <input type='number' id='reg_nmbr' name='reg_nmbr' ></p>  
+    <button type="submit" class="save btn btn-default">Ок</button>
+  </form>
+</div>  
+  {% endblock %}

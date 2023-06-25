@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+
+
+{% block main %}
+<style type="text/css">
+tr.orange { background: rgb(245, 171, 148); }
+tr.green  { background: rgb(221, 253, 221); }
+</style>
+
+
+
+<div align="center">
+    <p></p>
+    <p><b>Просмотр реестров</b></p>
+
+
+  <form method="POST" class="post-form">{% csrf_token %}
+      <br>
+      <p>{{ form.as_p }}</p>  <!-- отображаю форму, оборачиваю элементы формы в тег <p>  Вывести их в таблице, в ячейках тега <tr>-->        
+      {% if request.user.username == 'admin' %} 
+      <button type="submit" name="var" value="izv_pdf">Печатать извещений pdf</button>
+      <button type="submit" name="var" value="uved_pdf">Печатать уведомлений pdf</button>
+      <button type="submit" name="var" value="izv">Печатать извещений xls</button>
+      <button type="submit" name="var" value="del">Удалить реестр</button>
+      {% endif %}
+      <button type="submit" name="var" value="pdf">Печатать реестра pdf</button>
+      <button type="submit" name="var" value="xls">Печатать реестра xls</button>  
+
+    <br>
+    <table align="center" class="table" style="position: relative;">
+     <thead>    
+       <tr>
+        {% if request.user.username == 'admin' %} 
+            <!-- <th></th> -->    
+        {% endif %}    
+            <th>№ реестра</th>
+            <th>id реестра</th>
+            <th>Дата доб. реестра</th>
+            {% if request.user.username == 'admin' %} 
+            <th>Реальная дата добавления</th>
+            {% endif %}            
+            <th>Налоговая</th>
+            <th>Тип</th>
+            <th>Кол. абонентов</th>
+            <th>Напечатано</th>
+       </tr>
+     </thead>
+     <tbody>
+        {% for q in Registers_info %}
+          {% if q.printed %} 
+            <tr class="green">
+          {% else %}
+            <tr class="orange">
+          {% endif %}
+              {% if request.user.username == 'admin' %} 
+              <!-- <td><input type="checkbox" name="checkbox" id="checkbox" value="{{ q.reg_number }}"></td> -->  <!-- в итоге имеем список удаляемых реестров -->
+              {% endif %}
+              <td>
+                {% if q.notification_id == 'OR' %}
+                <a href="/myapp/view_ordinary_registry/{{q.id}}" style="position: absolute; width: 100%; height: 1.5em;">{{ q.year_reg_number }}</a>
+                {% else %}
+                <a href="/myapp/view_registers/{{q.id}}" style="position: absolute; width: 100%; height: 1.5em;">{{q.year_reg_number}}</a>
+                {% endif %}
+              </td>        
+              <td>{{ q.id }}</td>
+              <td>{{ q.reg_date }}</td>
+              {% if request.user.username == 'admin' %} 
+                <td>{{ q.reg_real_datetime }}</td>           
+              {% endif %}             
+              <td>{{ q.fns_verbose }}</td>
+              <td>{{ q.notification_verbose }}</td>
+              <td>{{ q.kol_mails }}</td>
+              {% if q.printed %}
+                <td>Напечатано</td>
+              {% else %}
+                <td>Не напечатано</td>   
+              {% endif %}
+         </tr>
+       {% endfor %}    
+     </tbody>
+   </table>
+    
+  </form>
+</div>
+
+  {% include 'pagination.html' with regs=Registers_info %}
+{% endblock %}

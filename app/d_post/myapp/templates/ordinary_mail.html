@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<div align="center">  
+  <p><b>Добавление простых отправлений</b></p>
+  <br>
+  {% if request.user.username != 'admin' %}  
+    <p>Сегодня добавлено {{kol_simpl}} отправлений</p>
+  {% endif %}
+  <br>
+  <form method="POST" class="post-form" enctype="multipart/form-data">{% csrf_token %}
+      <p>Количество добавляемых отправлений: <input type = 'number' name = 'kol'></p>
+      <p>{{ form.as_p }}</p>
+      <button type="submit" class="save btn btn-default">Добавить</button>
+  </form>
+</div>  
+  {% endblock %}

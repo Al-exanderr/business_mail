@@ -1,0 +1,27 @@
+version: "3.7"
+services:
+
+  app:
+    build: ./app/
+    # restart: always
+    volumes:
+      - ./app/d_post/:/code/
+    expose:
+      - 8080
+    entrypoint: /bin/bash entrypoint.sh
+
+  nginx:
+    build: ./nginx
+    # restart: always
+    volumes:
+      - ./app/d_post/static/:/static/
+    ports:
+      - 127.0.0.1:81:80
+    depends_on:
+      - app
+
+  redis:
+    build: ./redis
+    # restart: always
+    expose:
+      - 6379

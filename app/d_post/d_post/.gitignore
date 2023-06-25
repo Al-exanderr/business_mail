@@ -1,0 +1,6 @@
+*.pyc
+*~
+*.xlsx
+*.xls
+__pycache__
+settings.py

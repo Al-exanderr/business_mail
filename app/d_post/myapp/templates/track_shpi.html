@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+
+{% block main %}
+
+{% if Track_info %}
+  <p style="font-size:20px">Почтовое отправление {{Abonent.notification_verbose}} №{{ Abonent.shpi }}:</p>
+  <p style="font-size:20px">Текущий статус: {{ Track_last_info.status_verbose }}</p>
+  <p style="font-size:20px"><b>От кого:  </b>{{ Fnss }}</p>  
+  <p style="font-size:20px"><b>Кому: </b>{{Abonent.fio}}</p>    
+  <p style="font-size:20px"><b>Куда: </b>{{Abonent.address}}</p>  
+  <p style="font-size:20px">Номера документов: {{Abonent.doc_number}}</p>    
+  <p></p>
+  <p style="font-size:20px"><b>История:</b></p>    
+    <ul>
+    {% for q in Track_info %}
+    <p style="font-size:20px">{{ q.status_date }} {{ q.status_verbose }}</p>
+    {% endfor %}
+    </ul>
+    <h1 align="center"><a href="/myapp/track_as_pdf?q={{Abonent.shpi}}" target="_blank">Напечатать</a>  </h1>
+{% else %}
+    <p>По данному ШПИ информация отсутствует.</p>
+{% endif %}
+
+
+{% endblock %}
+
+

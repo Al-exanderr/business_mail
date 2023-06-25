@@ -1,0 +1,75 @@
+<meta charset="UTF-8" />
+
+<style type="text/css">    
+tr {
+  display: inline-table;
+}
+    @media print {
+      .after {page-break-after: always;}   /* forced transition to the next page */      
+      .non {page-break-inside: avoid;}  /* avoid breaking inside the notice */
+      .center {text-align: center;}
+      .left {text-align: left;}
+      /* .th {font-size:8px} */
+      table td > div {
+        overflow: hidden;
+        height: 390px;
+        }
+    } 
+</style>
+
+
+{% for q in all_abons %}
+<div class="non">  
+  <table align="left" width=100% cellspacing="4" cellpadding="15" border="0">
+    <thead>
+      <tr>
+        <td width=50%>
+        {% with obj=q.0 %}  
+          {% if uved %}
+            {% include 'uved_block.html' %}
+          {% else %}
+            {% include 'izv_block.html' %}
+          {% endif %}         
+        {% endwith %}
+        </td>  
+        <td width=50%>
+        {% if q.1 %}
+          {% with obj=q.1 %}  
+            {% if uved %}
+              {% include 'uved_block.html' %}
+            {% else %}
+              {% include 'izv_block.html' %}
+            {% endif %}         
+          {% endwith %}
+        {% endif %}
+        </td>   
+      </tr> 
+      <tr>
+        <td width=50%>
+        {% if q.2 %}
+          {% with obj=q.2 %}  
+            {% if uved %}
+              {% include 'uved_block.html' %}
+            {% else %}
+              {% include 'izv_block.html' %}
+            {% endif %}         
+          {% endwith %}
+        {% endif %}
+    </td>  
+        <td width=50%>
+          {% if q.3 %}
+            {% with obj=q.3 %}  
+              {% if uved %}
+                {% include 'uved_block.html' %}
+              {% else %}
+                {% include 'izv_block.html' %}
+              {% endif %}         
+            {% endwith %}
+          {% endif %}
+    </td>   
+      </tr>
+    </thead> 
+  </table>
+</div>
+<p class="after"></p> <!-- next notice on the next page -->
+{% endfor %}  

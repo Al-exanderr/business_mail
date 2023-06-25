@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<div align="center">
+  <p><b>Загрузка файла реестра</b></p>
+  <br>
+  <form method="POST" class="post-form"  enctype="multipart/form-data">{% csrf_token %}
+      {{ form.as_p }} 
+      {% if request.user.username == 'admin' %} 
+      <p>Дата регистрации реестра: <input type = 'date' name = 'reg_date' ></p>
+      {% endif %}          
+      <button type="submit" class="save btn btn-default">Загрузить</button>
+  </form>
+</div>  
+  {% endblock %}

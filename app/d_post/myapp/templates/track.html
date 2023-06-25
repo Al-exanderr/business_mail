@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+
+{% block main %}
+<div align="center">
+    <p></p>
+    <p><b>Отслеживание отправлений</b></p>
+    <br>
+    <p>Отслеживаются только отправления с номерами, сгенерированными в данном сервисе.</p>
+    <form method="POST" class="post-form">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-default">Отследить</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,2 @@
+FROM redis:6
+# redis-5.0.8

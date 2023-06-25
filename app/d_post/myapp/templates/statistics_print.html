@@ -1,0 +1,80 @@
+{% load static %}
+
+<html>
+ <head>
+  <meta charset="UTF-8" />
+  <title></title>
+   <style> 
+    h1 {
+       text-align: center;
+     }
+
+    table {
+       border: 1px solid;
+       margin: 1 auto;
+       width: 100%;
+     }
+
+    td, th {
+       text-align: center;
+       border: 1px solid;
+       font-size: 12px;
+       line-height: 16px;
+       border-bottom: 1px solid;
+       vertical-align: top;
+       padding: 10px;
+     }
+    
+    @page {
+    size: A4;
+    margin: 15mm 20mm;
+    }
+   </style>
+</head>
+
+<!-- <link rel="stylesheet" type="text/css" href="{% static 'templates/base.css' %}"> -->
+
+
+
+{% block main %}
+<div align="center">  
+  <p><b>Статистика по количеству отправлений с {{start_date}} по {{end_date}}</b></p>
+  <br>
+</div>    
+
+<table align="center" class="table" style="position: relative;">
+  <thead>    
+    <tr>
+         <th>Налоговая</th>
+         <th>Простых отправ- лений</th> 
+         <th>Заказных отправ- лений</th>
+         <th>Заказных с уведом- лением</th>
+         <th>Адми- нистра- тивных</th>
+         <th>ВСЕХ</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for q in zak_list %}
+      <tr>        
+           <td>{{ q.0 }}</td>
+           <td>{{ q.1 }}</td>
+           <td>{{ q.2 }}</td>
+           <td>{{ q.3 }}</td>
+           <td>{{ q.4 }}</td>
+           <td>{{ q.1|add:q.2|add:q.3|add:q.4 }}</td>
+      </tr>
+    {% endfor %}
+    <!-- последняя строка для админа-->
+    {% if request.user.username == 'admin' %} 
+    <tr>        
+      <td><b>По всем налоговым</b></td>
+      <td><b>{{ kol_simpl }}</b></td>
+      <td><b>{{ kol_zak }}</b></td>
+      <td><b>{{ kol_zak_u }}</b></td>
+      <td><b>{{ kol_zak_adm }}</b></td>
+      <td><b>{{ kol }}</b></td> 
+    </tr>
+    {% endif %}
+  </tbody>
+</table>
+{% endblock %}
