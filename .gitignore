@@ -1,7 +1,5 @@
 _notes
 __pycache__/
-*.py[cod]
-*$py.class
 *.xlsx
 *.xls
 *.pdf
@@ -17,7 +15,6 @@ htmlcov/
 nosetests.xml
 coverage.xml
 *.cover
-*.py,cover
 .hypothesis/
 .pytest_cache/
 cover/
