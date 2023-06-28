@@ -1,7 +1,6 @@
-manage.py
-
 _notes
 __pycache__/
+d_post/__pycache__/
 *.xlsx
 *.xls
 *.pdf
